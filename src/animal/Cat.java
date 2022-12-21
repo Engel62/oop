@@ -2,7 +2,7 @@ package animal;
 import java.time.LocalDate;
 import java.util.Arrays;
 
-public class Cat {
+public final class Cat extends Pet {
     private static int count;
 
     public static int getCount() {
@@ -58,14 +58,13 @@ public class Cat {
         }
 
         public String getCatName() {
-            return Cat.this.name;
+            return Cat.this.getName();
         }
     }
 
     private FavToy toy;
-    private String name;
-    private int birthYear;
-    private Cat[] friends;
+
+    private Pet[] friends;
     private Breed breed;
 
     public Cat(String name) {
@@ -83,22 +82,17 @@ public class Cat {
         );
     }
 
-    public Cat(
-            String name,
-            int age
-    ) {
-        this.name = name;
-
-        if (age >= 0) {
-            this.birthYear = LocalDate.now()
-                    .getYear() - age;
-        } else {
-            this.birthYear = LocalDate.now()
-                    .getYear() - Math.abs(age);
-        }
-
-        friends = new Cat[0];
+    public Cat(String name, int age) {
+        super(name, age);
+        friends = new Pet[0];
         count++;
+    }
+
+    @Override
+    public void eat() {
+        System.out.println("Насыпают кошачий корм в миску");
+        System.out.println("Ем корм");
+        System.out.println("Пью воду");
     }
 
     public Breed getBreed() {
@@ -113,42 +107,23 @@ public class Cat {
 
     public void meow() {
         System.out.println("Мяу!");
-        System.out.println("Меня звут " + name);
+        System.out.println("Меня звут " + getName());
         System.out.println("Мне " + getAge() + " лет");
     }
 
-    public Cat[] getFriends() {
+    public Pet[] getFriends() {
         if (friends == null) {
-            friends = new Cat[0];
+            friends = new Pet[0];
         }
 
         return friends;
     }
 
-    public void addFriends(Cat friend) {
-        this.friends = Arrays.copyOf(
-                getFriends(),
-                this.getFriends().length + 1
-        );
+    public void addFriends(Pet friend) {
+        this.friends = Arrays.copyOf(getFriends(), getFriends().length + 1);
         this.friends[this.friends.length - 1] = friend;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        if (name != null && !name.isEmpty() && !name.isBlank()) {
-            this.name = name;
-        } else {
-            this.name = "Кот";
-        }
-    }
-
-    public int getAge() {
-        return LocalDate.now()
-                .getYear() - birthYear;
-    }
 
     public FavToy getToy() {
         return toy;
