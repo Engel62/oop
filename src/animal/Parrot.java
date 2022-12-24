@@ -18,6 +18,19 @@ public class Parrot extends Pet {
         System.out.println("Hello!");
         super.talk();
     }
+    public void talk(String word) {
+        System.out.println(word);
+        talk();
+    }public void talk(String... words) {
+        for (String word : words) {
+            System.out.println(word);
+        }
+    }
+
+    @Override
+    public String getName() {
+        return super.getName().toUpperCase()   ;
+    }
 
     @Override
     public void eat() {

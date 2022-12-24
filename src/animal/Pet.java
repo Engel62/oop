@@ -8,10 +8,10 @@ public abstract class Pet {
 
     private String address;
     private String phone;
-    private  int birthYear;
+    private int birthYear;
 
     public Pet(String name) {
-        this(name , 0);
+        this(name, 0);
     }
 
     public Pet(String name, int age) {
@@ -26,14 +26,13 @@ public abstract class Pet {
     }
 
     public void talk() {
-        System.out.println("Меня зoвут " + getName());;
+        System.out.println("Меня зoвут " + getName());
     }
 
-    public  abstract void eat();
 
+    public abstract void eat();
 
-
-    public final String getName() {
+    public String getName() {
         return name;
     }
 

@@ -2,12 +2,14 @@ package animal;
 import java.time.LocalDate;
 import java.util.Arrays;
 
-public final class Cat extends Pet {
+public final class Cat extends Pet implements Trained {
     private static int count;
 
     public static int getCount() {
         return count;
     }
+
+
 
     public static class Breed {
         private String name;
@@ -110,6 +112,25 @@ public final class Cat extends Pet {
         System.out.println("Меня звут " + getName());
         System.out.println("Мне " + getAge() + " лет");
     }
+    @Override
+    public String[] getTrainedCommands() {
+        return new String[0];
+    }
+
+    @Override
+    public String[] getAllCommand() {
+        return new String[0];
+    }
+
+    @Override
+    public void doCommand(String command) {
+
+    }
+
+    @Override
+    public void train(String command) {
+
+    }
 
     public Pet[] getFriends() {
         if (friends == null) {
@@ -122,6 +143,8 @@ public final class Cat extends Pet {
     public void addFriends(Pet friend) {
         this.friends = Arrays.copyOf(getFriends(), getFriends().length + 1);
         this.friends[this.friends.length - 1] = friend;
+
+        System.out.println(getName() + " подружился с  " + friend.getName());
     }
 
 
