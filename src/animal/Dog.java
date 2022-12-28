@@ -4,13 +4,9 @@ import java.util.Arrays;
 
 public class Dog extends Pet implements Trained {
 
-    public static final String CMD_SIT = "Сидеть";
-    public static final String CMD_VOICE = "Голос";
-    public static final String CMD_FETCH = "Апорт";
-    public static final String[] ALL_TRAINED_COMMANDS = {CMD_SIT, CMD_VOICE, CMD_FETCH};
+    public enum TrainedCommand { CMD_SIT,CMD_LIE_DOWN,CMD_VOICE,CMD_FETCH }
 
-
-    private String[] trainedCommands = new String[0];
+    private TrainedCommand[] trainedCommands = new TrainedCommand[0];
 
     public Dog(String name) {
         this(name, 0);
@@ -29,23 +25,36 @@ public class Dog extends Pet implements Trained {
 
     @Override
     public String[] getTrainedCommands() {
-        return  trainedCommands;
+        String[] commands = new String[trainedCommands.length];
+        for (int i = 0; i < trainedCommands.length; i++) {
+            commands[i] = trainedCommands[i].name();
+        }
+        return commands;
     }
 
     @Override
     public String[] getAllCommand() {
-        return ALL_TRAINED_COMMANDS;
-    }
+        String[] commands = new String[TrainedCommand.values().length];
+        for (int i = 0; i < commands.length; i++) {
+            commands[i] = TrainedCommand.values()[i].name();
+        }
+        return commands;
+
+        }
+
     @Override
     public void train(String command) {
+        TrainedCommand trainedCommand = TrainedCommand.valueOf(command);
         trainedCommands = Arrays.copyOf(trainedCommands, trainedCommands.length + 1);
-        trainedCommands[trainedCommands.length - 1] = command;
+        trainedCommands[trainedCommands.length - 1] = trainedCommand;
     }
 
     @Override
     public void doCommand(String command) {
         System.out.println("Выполняю команду " + command);
-        switch (command) {
+        TrainedCommand trainedCommand = TrainedCommand.valueOf(command);
+
+        switch (trainedCommand) {
             case CMD_SIT:
                 System.out.println("Собака садиться на пол");
                 break;
@@ -54,6 +63,9 @@ public class Dog extends Pet implements Trained {
                 System.out.println("Собака принесла палку");
                 break;
             case  CMD_VOICE:
+                talk();
+                break;
+            case  CMD_LIE_DOWN:
                 talk();
                 break;
             default:

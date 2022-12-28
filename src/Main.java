@@ -58,8 +58,8 @@ public class Main {
 //
 //        System.out.println("Создано котов " + Cat.getCount());
         Tiger tiger = new Tiger();
-        sharik.train(Dog.CMD_FETCH);
-        sharik.train(Dog.CMD_SIT);
+        sharik.train(Dog.TrainedCommand.CMD_SIT.name());
+
 
         checkTrained(sharik, tiger, new Dog("sdsd"));
 
