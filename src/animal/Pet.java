@@ -3,9 +3,8 @@ package animal;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public abstract class Pet {
+public abstract class Pet extends Object {
     private String name;
-
     private String address;
     private String phone;
     private int birthYear;
@@ -18,17 +17,15 @@ public abstract class Pet {
         setName(name);
 
         if (age >= 0) {
-            this.birthYear = LocalDate.now()
-                    .getYear() - age;
+            this.birthYear = LocalDate.now().getYear() - age;
         } else {
             this.birthYear = LocalDate.now().getYear() - Math.abs(age);
         }
     }
 
     public void talk() {
-        System.out.println("Меня зoвут " + getName());
+        System.out.println("Меня зовут " + getName());
     }
-
 
     public abstract void eat();
 
@@ -36,16 +33,19 @@ public abstract class Pet {
         return name;
     }
 
-    public final void setName(String name) {
+//    public final String getName() {
+//        return name;
+//    }
+
+    public void setName(String name) {
         if (name != null && !name.isEmpty() && !name.isBlank()) {
             this.name = name;
-        } else {
-            this.name = "Annonimus";
         }
     }
 
     public int getAge() {
-        return LocalDate.now().getYear() - birthYear;
+        return LocalDate.now()
+                .getYear() - birthYear;
     }
 
     public String getAddress() {
@@ -64,17 +64,12 @@ public abstract class Pet {
         this.phone = phone;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Pet pet = (Pet) o;
-        return birthYear == pet.birthYear && Objects.equals(name, pet.name) && Objects.equals(address, pet.address) && Objects.equals(phone, pet.phone);
+    public int getBirthYear() {
+        return birthYear;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, address, phone, birthYear);
+    public void setBirthYear(int birthYear) {
+        this.birthYear = birthYear;
     }
 
     @Override
@@ -85,5 +80,25 @@ public abstract class Pet {
                 ", phone='" + phone + '\'' +
                 ", birthYear=" + birthYear +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Pet)) {
+            return false;
+        }
+        Pet pet = (Pet) o;
+        return getBirthYear() == pet.getBirthYear()
+                && Objects.equals(getName(), pet.getName())
+                && Objects.equals(getAddress(), pet.getAddress())
+                && Objects.equals(getPhone(), pet.getPhone());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getAddress(), getPhone(), getBirthYear());
     }
 }

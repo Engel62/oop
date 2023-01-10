@@ -1,26 +1,37 @@
 import animal.Pet;
 import animal.Trained;
+import animal.TrainedCommand;
 
-public class Trainer<A extends  Trained> {
-    private  String name;
+//public class Trainer<A extends Trained, B extends Pet & Trained> {
+public class Trainer<A extends Trained> {
+    private String name;
     private String grade;
-
+    //    private B animal;
+    private A animal;
 
     public Trainer(String name) {
         this.name = name;
     }
 
-    public void train(A pet) {
- //       System.out.println("Начинаю тренировку[" + pet.getName() + "]");
+//    public Trainer(String name, B animal) {
+//        this.name = name;
+//        this.animal = animal;
+//    }
 
-        for (String command:pet.getAllCommand()) {
+    public Trainer(String name, A animal) {
+        this.name = name;
+        this.animal = animal;
+    }
+
+    public void train(A pet) {
+//        System.out.println("Начинаю тренировать [" + pet.getName() + "]");
+
+        for (TrainedCommand command : pet.getAllCommands()) {
+            System.out.println("Обучаю команде " + command);
             pet.train(command);
-   //         System.out.println("Обучаем команде" + command);
         }
 
-        
-
-  //     System.out.println("Заканчиваю  тренировку[" + pet.getName() + "]");
+//        System.out.println("Заканчиваю тренировать [" + pet.getName() + "]");
     }
 
     public String getName() {

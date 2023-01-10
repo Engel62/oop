@@ -1,14 +1,11 @@
 package animal;
 
 public interface Trained {
+    TrainedCommand[] getTrainedCommands();
 
-    String[] getTrainedCommands();
+    TrainedCommand[] getAllCommands();
 
-    String[] getAllCommand();
+    void train(TrainedCommand command);
 
-    void doCommand(String command);
-
-    void  train (String command);
-
-
+    void doCommand(TrainedCommand command);
 }

@@ -2,22 +2,22 @@ package animal;
 
 public class Tiger implements Trained {
     @Override
-    public String[] getTrainedCommands() {
-        return new String[0];
+    public TrainedCommand[] getTrainedCommands() {
+        return new TrainedCommand[0];
     }
 
     @Override
-    public String[] getAllCommand() {
-        return new String[0];
+    public TrainedCommand[] getAllCommands() {
+        return new TrainedCommand[0];
     }
 
     @Override
-    public void doCommand(String command) {
-
+    public void train(TrainedCommand command) {
+        System.out.println("Я дикий учиться не буду");
     }
 
     @Override
-    public void train(String command) {
-
+    public void doCommand(TrainedCommand command) {
+        System.out.println("Я никого не слушаюсь!");
     }
 }

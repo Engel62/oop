@@ -12,6 +12,5 @@ public class Hamster extends Pet {
     @Override
     public void eat() {
         System.out.println("Ем корм из кормушки");
-
     }
 }

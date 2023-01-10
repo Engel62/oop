@@ -1,29 +1,28 @@
 package animal;
-import java.time.LocalDate;
 import java.util.Arrays;
 
-public final class Cat extends Pet implements Trained {
+public class Cat extends Pet implements Trained {
     private static int count;
 
     public static int getCount() {
         return count;
     }
 
-
-
     public static class Breed {
+        public enum HairType {BALD, SHORT, MEDIUM, LONG}
+
         private String name;
         private String country;
-        private String hairType;
+        private HairType hairType;
 
         public Breed(
                 String name,
                 String country,
-                String heirType
+                HairType hairType
         ) {
             this.name = name;
             this.country = country;
-            this.hairType = heirType;
+            this.hairType = hairType;
         }
 
         public String getName() {
@@ -34,7 +33,7 @@ public final class Cat extends Pet implements Trained {
             return country;
         }
 
-        public String getHairType() {
+        public HairType getHairType() {
             return hairType;
         }
     }
@@ -65,36 +64,22 @@ public final class Cat extends Pet implements Trained {
     }
 
     private FavToy toy;
-
     private Pet[] friends;
     private Breed breed;
 
     public Cat(String name) {
-        this(
-                name,
-                LocalDate.now()
-                        .getYear()
-        );
+        this(name, 0);
     }
 
     public Cat(int birthYear) {
-        this(
-                "Кот",
-                birthYear
-        );
+        this("Кот", birthYear);
     }
 
     public Cat(String name, int age) {
         super(name, age);
+
         friends = new Pet[0];
         count++;
-    }
-
-    @Override
-    public void eat() {
-        System.out.println("Насыпают кошачий корм в миску");
-        System.out.println("Ем корм");
-        System.out.println("Пью воду");
     }
 
     public Breed getBreed() {
@@ -112,24 +97,12 @@ public final class Cat extends Pet implements Trained {
         System.out.println("Меня звут " + getName());
         System.out.println("Мне " + getAge() + " лет");
     }
-    @Override
-    public String[] getTrainedCommands() {
-        return new String[0];
-    }
 
     @Override
-    public String[] getAllCommand() {
-        return new String[0];
-    }
-
-    @Override
-    public void doCommand(String command) {
-
-    }
-
-    @Override
-    public void train(String command) {
-
+    public void eat() {
+        System.out.println("Насыпают кошачий корм в миску");
+        System.out.println("Ем корм");
+        System.out.println("Пью воду");
     }
 
     public Pet[] getFriends() {
@@ -144,9 +117,8 @@ public final class Cat extends Pet implements Trained {
         this.friends = Arrays.copyOf(getFriends(), getFriends().length + 1);
         this.friends[this.friends.length - 1] = friend;
 
-        System.out.println(getName() + " подружился с  " + friend.getName());
+        System.out.println(getName() + " подружился с " + friend.getName());
     }
-
 
     public FavToy getToy() {
         return toy;
@@ -154,5 +126,30 @@ public final class Cat extends Pet implements Trained {
 
     public void setToy(FavToy toy) {
         this.toy = toy;
+    }
+
+    @Override
+    public String toString() {
+        return "Cat Name " + getName();
+    }
+
+    @Override
+    public TrainedCommand[] getTrainedCommands() {
+        return new TrainedCommand[0];
+    }
+
+    @Override
+    public TrainedCommand[] getAllCommands() {
+        return new TrainedCommand[0];
+    }
+
+    @Override
+    public void train(TrainedCommand command) {
+
+    }
+
+    @Override
+    public void doCommand(TrainedCommand command) {
+
     }
 }
